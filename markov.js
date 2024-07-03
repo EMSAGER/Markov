@@ -17,7 +17,21 @@ class MarkovMachine {
    *  {"the": ["cat", "hat"], "cat": ["in"], "in": ["the"], "hat": [null]} */
 
   makeChains() {
-    // TODO
+    // make a new array for the chain
+    let newChain = new Map();
+
+    //loop through word
+    for (let i = 0; i < this.words.length(); i++) {
+      //create  new variables for the looping
+      let word = this.words[i];
+      let nextWord = this.words[i + 1] || null;
+
+      //update the chain
+      if(newChain.has(word)) newChain.get(word);
+        //If the map does not contain word, it creates a new entry with the word as the key &
+        // nextWord as the first element in the list of subsequent words.
+      else(newChain.set(word, [nextWord]));
+    }
   }
 
 
