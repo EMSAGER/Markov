@@ -18,7 +18,7 @@ class MarkovMachine {
 
   makeChains() {
     // make a new array for the chain
-    let newChain = new Map();
+    let chains = new Map();
 
     //loop through word
     for (let i = 0; i < this.words.length; i++) {
@@ -27,11 +27,15 @@ class MarkovMachine {
       let nextWord = this.words[i + 1] || null;
 
       //update the chain
-      if(newChain.has(word)) newChain.get(word);
+      if(chains.has(word)) {
+        chains.get(word).push(nextWord);
+      } else {
         //If the map does not contain word, it creates a new entry with the word as the key &
         // nextWord as the first element in the list of subsequent words.
-      else(newChain.set(word, [nextWord]));
+        chains.set(word, [nextWord]);
+      }
     }
+    this.chains = chains;
   }
 
 
@@ -39,13 +43,13 @@ class MarkovMachine {
 
   makeText(numWords = 100) {
     //set up variables
-    let keys = Array.from(this.newChain.keys());
+    let keys = Array.from(this.chains.keys());
     let key = keys[Math.floor(Math.random() * keys.length)];
     let output = [];
 
     while(output.length < numWords && key !== null){
       output.push(key);
-      let nextWords = this.newChain.get(key);
+      let nextWords = this.chains.get(key);
       key = nextWords[Math.floor(Math.random() * nextWords.length)];
     }
     return output.join(" ");
