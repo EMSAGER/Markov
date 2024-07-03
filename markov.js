@@ -47,7 +47,7 @@ class MarkovMachine {
     let key = keys[Math.floor(Math.random() * keys.length)];
     let output = [];
 
-    while(output.length < numWords && key !== null){
+    while(output.length <= numWords && key !== null){
       output.push(key);
       let nextWords = this.chains.get(key);
       key = nextWords[Math.floor(Math.random() * nextWords.length)];
@@ -55,3 +55,5 @@ class MarkovMachine {
     return output.join(" ");
   }
 }
+
+module.exports = {MarkovMachine};
