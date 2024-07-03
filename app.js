@@ -21,7 +21,7 @@ class MarkovMachine {
     let newChain = new Map();
 
     //loop through word
-    for (let i = 0; i < this.words.length(); i++) {
+    for (let i = 0; i < this.words.length; i++) {
       //create  new variables for the looping
       let word = this.words[i];
       let nextWord = this.words[i + 1] || null;
@@ -38,6 +38,16 @@ class MarkovMachine {
   /** return random text from chains */
 
   makeText(numWords = 100) {
-    // TODO
+    //set up variables
+    let keys = Array.from(this.newChain.keys());
+    let key = keys[Math.floor(Math.random() * keys.length)];
+    let output = [];
+
+    while(output.length < numWords && key !== null){
+      output.push(key);
+      let nextWords = this.newChain.get(key);
+      key = nextWords[Math.floor(Math.random() * nextWords.length)];
+    }
+    return output.join(" ");
   }
 }
